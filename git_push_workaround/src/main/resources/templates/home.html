@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Isai Thalam - Discover trending music, curated playlists, and music videos.">
+    <title>Isai Thalam – Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-sm">🎵</div>
+                <span>Isai Thalam</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="/home" class="nav-item active" id="navHome">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    Home
+                </a>
+                <a href="/search" class="nav-item" id="navSearch">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    Search
+                </a>
+                <a href="javascript:void(0)" class="nav-item" id="navLibrary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+                    Your Library
+                </a>
+                <a href="javascript:void(0)" class="nav-item" id="navLiked">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    Liked Songs
+                </a>
+            </nav>
+
+            <div class="nav-section-title">Playlists</div>
+            <div class="sidebar-playlists" id="sidebarPlaylists">
+                <!-- Filled by JS -->
+            </div>
+
+            <div style="padding: 12px;">
+                <button class="nav-item" id="createPlaylistBtn" style="width:100%;border:1px dashed var(--border-light);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    New Playlist
+                </button>
+            </div>
+        </aside>
+
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+
+                <div class="header-search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    <input type="text" id="headerSearchInput" placeholder="Search songs, artists, albums...">
+                </div>
+
+                <div class="header-user" style="position:relative;">
+                    <div class="header-user-avatar" id="userAvatar">U</div>
+                    <div class="user-menu" id="userMenu">
+                        <div class="user-menu-item" id="profileItem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            Profile
+                        </div>
+                        <div class="user-menu-item" id="logoutItem">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            Log out
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content" id="pageContent">
+                <!-- Hero Banner -->
+                <div class="hero-banner" id="heroBanner">
+                    <div class="hero-overlay">
+                        <div class="hero-content">
+                            <span class="hero-tag">Featured</span>
+                            <h2 id="heroTitle">Discover Your Sound</h2>
+                            <p id="heroDesc">Stream millions of songs and music videos. Your personal soundtrack starts here.</p>
+                            <div class="hero-actions">
+                                <button class="btn-play-hero" id="heroPlayBtn">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                    Play Now
+                                </button>
+                                <button class="btn-outline">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                    Add to Library
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-art" id="heroArt">
+                        <div style="width:100%;height:100%;background:var(--accent-gradient);display:flex;align-items:center;justify-content:center;font-size:64px;">🎶</div>
+                    </div>
+                </div>
+
+                <!-- Trending Now -->
+                <div class="section" id="trendingSection">
+                    <div class="section-header">
+                        <h3>🔥 Trending Now</h3>
+                        <a href="/search">See all</a>
+                    </div>
+                    <div class="scroll-row" id="trendingGrid">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Featured Picks -->
+                <div class="section" id="featuredSection">
+                    <div class="section-header">
+                        <h3>⭐ Featured Picks</h3>
+                        <a href="/search">See all</a>
+                    </div>
+                    <div class="scroll-row" id="featuredGrid">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- All Songs -->
+                <div class="section" id="allSongsSection">
+                    <div class="section-header">
+                        <h3>🎧 All Songs</h3>
+                    </div>
+                    <div class="song-grid" id="allSongsGrid">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Your Playlists -->
+                <div class="section" id="playlistsSection">
+                    <div class="section-header">
+                        <h3>📀 Your Playlists</h3>
+                    </div>
+                    <div class="scroll-row" id="playlistsGrid">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Player -->
+    <div class="bottom-player" id="bottomPlayer">
+        <div class="player-left">
+            <div class="player-cover" id="playerCover">
+                <img src="" alt="Now Playing" id="playerCoverImg">
+            </div>
+            <div class="player-song-info">
+                <div class="player-song-title" id="playerTitle">-</div>
+                <div class="player-song-artist" id="playerArtist">-</div>
+            </div>
+            <button class="player-like-btn" id="playerLikeBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </button>
+        </div>
+
+        <div class="player-center">
+            <div class="player-controls">
+                <button class="player-control-btn" id="shuffleBtn" title="Shuffle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                </button>
+                <button class="player-control-btn" id="prevBtn" title="Previous">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <button class="player-play-btn" id="playPauseBtn" title="Play">
+                    <svg viewBox="0 0 24 24" fill="currentColor" id="playIcon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </button>
+                <button class="player-control-btn" id="nextBtn" title="Next">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg>
+                </button>
+                <button class="player-control-btn" id="repeatBtn" title="Repeat">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+                </button>
+            </div>
+            <div class="player-progress">
+                <span class="player-time" id="currentTime">0:00</span>
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+                </div>
+                <span class="player-time" id="totalTime">0:00</span>
+            </div>
+        </div>
+
+        <div class="player-right">
+            <div class="volume-control">
+                <button class="volume-btn" id="volumeBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+                </button>
+                <div class="volume-slider" id="volumeSlider">
+                    <div class="volume-slider-fill" id="volumeFill" style="width:70%"></div>
+                </div>
+            </div>
+            <button class="player-expand-btn" id="expandBtn" title="Full Screen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Expanded Player -->
+    <div class="expanded-player" id="expandedPlayer">
+        <button class="expanded-close" id="expandedClose">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:24px;height:24px;"><polyline points="4 14 10 20 20 4"/><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+
+        <!-- Video Container -->
+        <div class="video-container" id="videoContainer">
+            <video id="videoPlayer" controls></video>
+        </div>
+
+        <!-- Visualizer -->
+        <canvas class="visualizer-canvas" id="visualizerCanvas"></canvas>
+
+        <div class="expanded-art-container">
+            <div class="expanded-art" id="expandedArt">
+                <img src="" alt="Album Art" id="expandedArtImg">
+            </div>
+        </div>
+
+        <div class="expanded-song-info">
+            <div class="expanded-song-title" id="expandedTitle">-</div>
+            <div class="expanded-song-artist" id="expandedArtist">-</div>
+        </div>
+
+        <div class="expanded-controls">
+            <div class="expanded-progress">
+                <div class="player-progress">
+                    <span class="player-time" id="expCurrentTime">0:00</span>
+                    <div class="progress-bar" id="expProgressBar">
+                        <div class="progress-bar-fill" id="expProgressFill" style="width:0%"></div>
+                    </div>
+                    <span class="player-time" id="expTotalTime">0:00</span>
+                </div>
+            </div>
+
+            <div class="expanded-buttons">
+                <button class="expanded-btn" id="expShuffleBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px;"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                </button>
+                <button class="expanded-btn" id="expPrevBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+                </button>
+                <button class="expanded-play-btn" id="expPlayPauseBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" id="expPlayIcon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </button>
+                <button class="expanded-btn" id="expNextBtn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:28px;height:28px;"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg>
+                </button>
+                <button class="expanded-btn" id="expRepeatBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:22px;height:22px;"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Playlist Modal -->
+    <div class="modal-overlay" id="playlistModal">
+        <div class="modal">
+            <h3>Create New Playlist</h3>
+            <div class="input-group">
+                <label for="playlistNameInput">Playlist Name</label>
+                <input type="text" id="playlistNameInput" placeholder="My awesome playlist">
+            </div>
+            <div class="input-group">
+                <label for="playlistDescInput">Description (optional)</label>
+                <input type="text" id="playlistDescInput" placeholder="A collection of favorites...">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="cancelPlaylist">Cancel</button>
+                <button class="btn-create" id="confirmCreatePlaylist">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/player.js"></script>
+</body>
+</html>
