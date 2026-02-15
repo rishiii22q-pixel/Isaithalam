@@ -2,6 +2,7 @@ package com.isaithalam.controller;
 
 import com.isaithalam.dto.LoginRequest;
 import com.isaithalam.dto.OtpVerifyRequest;
+import com.isaithalam.dto.RegisterRequest;
 import com.isaithalam.model.User;
 import com.isaithalam.service.OtpService;
 import com.isaithalam.service.UserService;
@@ -28,6 +29,36 @@ public class AuthController {
         this.otpService = otpService;
         this.userService = userService;
         this.objectMapper = objectMapper;
+    }
+
+    // ---- Email/Password Auth ----
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        try {
+            User user = userService.registerUser(request);
+            return ResponseEntity.ok(Map.of("success", true, "message", "Registration successful"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(Map.of("success", false, "message", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpSession session) {
+        User user = userService.loginUser(request);
+        if (user != null) {
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("userName", user.getName());
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "user", Map.of(
+                            "id", user.getId(),
+                            "name", user.getName(),
+                            "email", user.getEmail(),
+                            "provider", "EMAIL",
+                            "avatar", user.getAvatarUrl() != null ? user.getAvatarUrl() : "")));
+        }
+        return ResponseEntity.badRequest().body(Map.of("success", false, "message", "Invalid email or password"));
     }
 
     // ---- Phone OTP Login ----

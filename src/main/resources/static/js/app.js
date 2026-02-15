@@ -259,6 +259,8 @@
             if (songs.length === 0) {
                 results.innerHTML = '<p style="color:var(--text-muted);padding:24px;text-align:center;">No results found. Try a different search.</p>';
             } else {
+                // Update global state so player can find these songs
+                window.appState.songs = songs;
                 results.innerHTML = songs.map((s, i) => songListItemHTML(s, i)).join('');
             }
         }

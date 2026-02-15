@@ -13,12 +13,13 @@ public class User {
     private String email;
     private String phone;
     private String avatarUrl;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private AuthProvider provider;
 
     public enum AuthProvider {
-        GOOGLE, PHONE
+        GOOGLE, PHONE, EMAIL
     }
 
     public User() {}
@@ -41,6 +42,8 @@ public class User {
     public void setPhone(String phone) { this.phone = phone; }
     public String getAvatarUrl() { return avatarUrl; }
     public void setAvatarUrl(String avatarUrl) { this.avatarUrl = avatarUrl; }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
     public AuthProvider getProvider() { return provider; }
     public void setProvider(AuthProvider provider) { this.provider = provider; }
 }

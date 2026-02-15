@@ -9,8 +9,11 @@ import java.util.List;
 public class SongService {
     private final SongRepository songRepository;
 
-    public SongService(SongRepository songRepository) {
+    private final MusicApiService musicApiService;
+
+    public SongService(SongRepository songRepository, MusicApiService musicApiService) {
         this.songRepository = songRepository;
+        this.musicApiService = musicApiService;
     }
 
     public List<Song> getAllSongs() {
@@ -18,11 +21,22 @@ public class SongService {
     }
 
     public Song getSongById(Long id) {
-        return songRepository.findById(id).orElse(null);
+        Song song = songRepository.findById(id).orElse(null);
+        if (song == null) {
+            // Try external API
+            song = musicApiService.getSongById(id);
+        }
+        return song;
     }
 
     public List<Song> getTrending() {
-        return songRepository.findTop10ByOrderByPlaysDesc();
+        // Mix local trending with global trending
+        List<Song> local = songRepository.findTop10ByOrderByPlaysDesc();
+        List<Song> global = musicApiService.getTrending();
+        
+        // Combine them (local first)
+        local.addAll(global);
+        return local;
     }
 
     public List<Song> getFeatured() {
@@ -34,7 +48,11 @@ public class SongService {
     }
 
     public List<Song> search(String query) {
-        return songRepository.search(query);
+        List<Song> local = songRepository.search(query);
+        List<Song> global = musicApiService.searchSongs(query);
+        
+        local.addAll(global);
+        return local;
     }
 
     public List<Song> getByGenre(String genre) {

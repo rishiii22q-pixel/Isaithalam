@@ -50,11 +50,41 @@
     function $(id) { return document.getElementById(id); }
 
     // ---- Play a song by ID ----
+    // ---- Play a song by ID ----
     window.playSong = async function (songId) {
         try {
-            const res = await fetch(`/api/songs/${songId}`);
-            const song = await res.json();
-            if (!song) return;
+            let song = null;
+
+            console.log('Playing song request:', songId, typeof songId);
+            console.log('Current queue:', window.playerQueue?.length);
+            console.log('App state songs:', window.appState?.songs?.length);
+
+            // 1. Try to find in current queue or app state first (avoids backend 404 for external songs)
+            if (window.playerQueue && window.playerQueue.length > 0) {
+                song = window.playerQueue.find(s => s.id == songId); // Loose equality
+                if (song) console.log('Found in queue:', song);
+            }
+
+            if (!song && window.appState?.songs) {
+                song = window.appState.songs.find(s => s.id == songId); // Loose equality
+                if (song) console.log('Found in appState:', song);
+                else {
+                    console.log('Not found in appState. Available IDs:', window.appState.songs.map(s => s.id));
+                }
+            }
+
+            // 2. If not found client-side, fetch from backend (only works for local DB songs)
+            if (!song) {
+                const res = await fetch(`/api/songs/${songId}`);
+                if (res.ok) {
+                    song = await res.json();
+                }
+            }
+
+            if (!song) {
+                console.error('Song not found:', songId);
+                return;
+            }
 
             currentSong = song;
 

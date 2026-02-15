@@ -20,6 +20,7 @@ public class Song {
     private long plays;
     private boolean liked;
     private boolean featured;
+    private String externalId; // For JioSaavn/YouTube IDs
 
     public Song() {}
 
@@ -47,4 +48,6 @@ public class Song {
     public void setLiked(boolean liked) { this.liked = liked; }
     public boolean isFeatured() { return featured; }
     public void setFeatured(boolean featured) { this.featured = featured; }
+    public String getExternalId() { return externalId; }
+    public void setExternalId(String externalId) { this.externalId = externalId; }
 }
